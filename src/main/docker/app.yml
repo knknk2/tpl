@@ -1,0 +1,17 @@
+version: "2"
+services:
+  bkapplication-app:
+    image: bkapplication
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bkapplication-postgresql:5432/bkapplication
+      - BOOT_SLEEP=10 # gives time for other services (db) to boot before the application
+      - POSTGRES_USER=bkapplication
+      - POSTGRES_PASSWORD=
+    ports:
+      - 8080:8080
+  bkapplication-postgresql:
+    extends:
+      file: postgresql.yml
+      service: bkapplication-postgresql

@@ -1,0 +1,95 @@
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+
+spring:
+  application:
+    name: bk
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:h2:mem:bk;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MULTI_THREADED=FALSE
+    name:
+    username: bk
+    password:
+    hikari:
+      auto-commit: false
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+  jpa:
+    database-platform: com.bk.bk.domain.util.FixedH2Dialect
+    database: H2
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    properties:
+      hibernate.id.new_generator_mappings: true
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+      hibernate.hbm2ddl.auto: validate
+      hibernate.jdbc.time_zone: UTC
+  mail:
+    host: localhost
+  main:
+    allow-bean-definition-overriding: true
+  messages:
+    basename: i18n/messages
+  mvc:
+    favicon:
+      enabled: false
+  task:
+    execution:
+      thread-name-prefix: bk-task-
+      pool:
+        core-size: 1
+        max-size: 50
+        queue-capacity: 10000
+    scheduling:
+      thread-name-prefix: bk-scheduling-
+      pool:
+        size: 1
+  thymeleaf:
+    mode: HTML
+
+server:
+  port: 10344
+  address: localhost
+
+
+# ===================================================================
+# Application specific properties
+# ===================================================================
+
+application:
+  clientApp:
+    name: 'bkapplication'
+  logging:
+    # To test json console appender
+    use-json-format: false # By default, logs are in Json format
+    # To test logstash appender
+    logstash:
+      enabled: false
+      host: localhost
+      port: 5000
+      queue-size: 512
+  metrics:
+    logs: # Reports metrics in the logs
+      enabled: true
+      report-frequency: 60 # in seconds
+  security:
+    authentication:
+      jwt:
+        # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
+        base64-secret: ZmI2IJ7QDpSre3OJ5fGVblFwSI0onBWHZ1jvWdXCLQE+WQqIEEX4d9TF5KyBg0bOUdFS+J32IpSxnxM+B6nuqw==
+        # Token is valid 24 hours
+        token-validity-in-seconds: 86400

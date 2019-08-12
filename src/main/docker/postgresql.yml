@@ -1,0 +1,11 @@
+version: '2'
+services:
+  bkapplication-postgresql:
+    image: postgres:11.4
+    volumes:
+        - ~/volumes/bk/bkapplication/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=bkapplication
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432
