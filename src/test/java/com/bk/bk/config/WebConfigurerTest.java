@@ -1,10 +1,7 @@
 package com.bk.bk.config;
 
-import com.bk.bk.config.ApplicationConstants;
-import com.bk.bk.config.ApplicationProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.mock.env.MockEnvironment;
 import org.springframework.mock.web.MockServletContext;
@@ -12,9 +9,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.servlet.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -60,16 +58,6 @@ public class WebConfigurerTest {
     env.setActiveProfiles(ApplicationConstants.SPRING_PROFILE_DEVELOPMENT);
     webConfigurer.onStartup(servletContext);
 
-  }
-
-  @Test
-  public void testCustomizeServletContainer() {
-    env.setActiveProfiles(ApplicationConstants.SPRING_PROFILE_PRODUCTION);
-    UndertowServletWebServerFactory container = new UndertowServletWebServerFactory();
-    webConfigurer.customize(container);
-    assertThat(container.getMimeMappings().get("abs")).isEqualTo("audio/x-mpeg");
-    assertThat(container.getMimeMappings().get("html")).isEqualTo("text/html;charset=utf-8");
-    assertThat(container.getMimeMappings().get("json")).isEqualTo("text/html;charset=utf-8");
   }
 
   @Test

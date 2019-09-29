@@ -255,12 +255,6 @@
 							<artifactId>spring-boot-configuration-processor</artifactId>
 							<version>${spring-boot.version}</version>
 						</path>
-						<!-- For JPA static metamodel generation -->
-						<path>
-							<groupId>org.hibernate</groupId>
-							<artifactId>hibernate-jpamodelgen</artifactId>
-							<version>${hibernate.version}</version>
-						</path>
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>

@@ -72,6 +72,8 @@ application:
       host: localhost
       port: 5000
       queue-size: 512
+  audit-events:
+    retention-period: 30 # Number of days before audit events are deleted.
   metrics:
     logs: # Reports metrics in the logs
       enabled: false

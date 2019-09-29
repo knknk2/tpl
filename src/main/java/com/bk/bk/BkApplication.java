@@ -3,16 +3,13 @@ package com.bk.bk;
 import com.bk.bk.config.ApplicationConstants;
 import com.bk.bk.config.ApplicationProperties;
 import com.bk.bk.config.DefaultProfileUtil;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -67,7 +64,7 @@ public class BkApplication implements InitializingBean {
 		}
 		String serverPort = env.getProperty("server.port");
 		String contextPath = env.getProperty("server.servlet.context-path");
-		if (StringUtils.isBlank(contextPath)) {
+        if (contextPath == null || contextPath.isBlank()) {
 			contextPath = "/";
 		}
 		String hostAddress = "localhost";

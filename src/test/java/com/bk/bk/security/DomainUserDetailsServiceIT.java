@@ -3,8 +3,6 @@ package com.bk.bk.security;
 import com.bk.bk.BkApplication;
 import com.bk.bk.domain.User;
 import com.bk.bk.repository.UserRepository;
-
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,20 +40,20 @@ public class DomainUserDetailsServiceIT {
   public void init() {
     userOne = new User();
     userOne.setLogin(USER_ONE_LOGIN);
-    userOne.setName(RandomStringUtils.randomAlphanumeric(30));
-    userOne.setPassword(RandomStringUtils.random(60));
+      userOne.setName("user1");
+      userOne.setPassword("pass1");
     userRepository.save(userOne);
 
     userTwo = new User();
     userTwo.setLogin(USER_TWO_LOGIN);
-    userTwo.setName(RandomStringUtils.randomAlphanumeric(30));
-    userTwo.setPassword(RandomStringUtils.random(60));
+      userTwo.setName("user2");
+      userTwo.setPassword("pass2");
     userRepository.save(userTwo);
 
     userThree = new User();
     userThree.setLogin(USER_THREE_LOGIN);
-    userThree.setName(RandomStringUtils.randomAlphanumeric(30));
-    userThree.setPassword(RandomStringUtils.random(60));
+      userThree.setName("user3");
+      userThree.setPassword("pass3");
     userRepository.save(userThree);
   }
 
