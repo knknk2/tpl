@@ -98,16 +98,16 @@ public class ApplicationProperties {
 
   public static class Cache {
 
-    private final Ehcache ehCache = new Ehcache();
+    private final Caffeine caffeine = new Caffeine();
 
     /**
-     * @return the ehCache
+     * @return the Caffeine
      */
-    public Ehcache getEhCache() {
-      return ehCache;
+    public Caffeine getCaffeine() {
+      return caffeine;
     }
 
-    public static class Ehcache {
+    public static class Caffeine {
 
       private int timeToLiveSeconds = 3600;
 

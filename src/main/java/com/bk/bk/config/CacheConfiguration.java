@@ -1,11 +1,11 @@
 package com.bk.bk.config;
 
-import java.time.Duration;
-
 import com.bk.bk.repository.UserRepository;
 
-import org.ehcache.config.builders.*;
-import org.ehcache.jsr107.Eh107Configuration;
+import com.github.benmanes.caffeine.jcache.configuration.CaffeineConfiguration;
+
+import java.util.OptionalLong;
+import java.util.concurrent.TimeUnit;
 
 import org.hibernate.cache.jcache.ConfigSettings;
 
@@ -24,12 +24,13 @@ public class CacheConfiguration {
 
   public CacheConfiguration(ApplicationProperties applicationProperties) {
     this.applicationProperties = applicationProperties;
-    ApplicationProperties.Cache.Ehcache ehcache = this.applicationProperties.getCache().getEhCache();
+    ApplicationProperties.Cache.Caffeine caffeine = this.applicationProperties.getCache().getCaffeine();
 
-    cacheConfiguration = Eh107Configuration.fromEhcacheCacheConfiguration(CacheConfigurationBuilder
-        .newCacheConfigurationBuilder(Object.class, Object.class, ResourcePoolsBuilder.heap(ehcache.getMaxEntries()))
-        .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(ehcache.getTimeToLiveSeconds())))
-        .build());
+    CaffeineConfiguration caffeineConfiguration = new CaffeineConfiguration();
+    caffeineConfiguration.setMaximumSize(OptionalLong.of(caffeine.getMaxEntries()));
+    caffeineConfiguration.setExpireAfterWrite(OptionalLong.of(TimeUnit.SECONDS.toNanos(caffeine.getTimeToLiveSeconds())));
+    caffeineConfiguration.setStatisticsEnabled(true);
+    cacheConfiguration = caffeineConfiguration;
   }
 
   @Bean
